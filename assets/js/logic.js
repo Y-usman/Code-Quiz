@@ -1,5 +1,6 @@
-import questions from "./questions.js";
-import { saveResult, displayHighscores, clearHighscores } from "./scores.js";
+//import questions from "./questions.js";
+//import { saveResult, displayHighscores } from "./scores.js";
+console.log(questions);
 
 document.addEventListener("DOMContentLoaded", function () {
     
@@ -12,7 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const endScreen = document.getElementById("end-screen");
     const feedbackDiv = document.getElementById("feedback");
     const scoresLink = document.querySelector(".scores a");
-    
+    const questionEl = document.getElementById("question");
 
 
     let currentQuestionIndex = 0;
@@ -29,36 +30,27 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function startQuiz() {
         startBtn.style.display = "none";
+        questionEl.classList().remove("hide");
         showQuestion();
         startTimer();
     }
 
-    // function showQuestion() {
-    //     const currentQuestion = questions[currentQuestionIndex];
-    //     console.log("Current Question:", currentQuestion); // Add this line
-    //     questionTitle.textContent = currentQuestion.title;
-    //     choicesContainer.innerHTML = "";
-    
-    //     currentQuestion.choices.forEach((choice) => {
-    //         const button = document.createElement("button");
-    //         button.textContent = choice;
-    //         button.addEventListener("click", () => checkAnswer(choice));
-    //         choicesContainer.appendChild(button);
-    //     });
-    // }
-
     function showQuestion() {
+        console.log("showing Questions");
         const currentQuestion = questions[currentQuestionIndex];
-    
-        if (currentQuestion) {
+        console.log(currentQuestion.title)
+            const testEl = document.getElementById("question-text");
+            testEl.textContent = "Hello"
+          // Clear previous choices
+          const choicesContainer = document.getElementById("choices");
+          choicesContainer.innerHTML = "";
+        // if (currentQuestion) {
             // Check if currentQuestion is defined
     
             // Update the question title
             document.getElementById("question-title").textContent = currentQuestion.title;
     
-            // Clear previous choices
-            const choicesContainer = document.getElementById("choices");
-            choicesContainer.innerHTML = "";
+          
     
             // Create buttons for each choice
             currentQuestion.choices.forEach((choice) => {
@@ -69,10 +61,10 @@ document.addEventListener("DOMContentLoaded", function () {
             });
     
             console.log("Showing question:", currentQuestionIndex, currentQuestion);
-        } else {
-            // If there are no more questions, end the quiz
-            endQuiz();
-        }
+        // } else {
+        //     // If there are no more questions, end the quiz
+        //     endQuiz();
+        // }
     }
     
     
