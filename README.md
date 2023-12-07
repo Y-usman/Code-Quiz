@@ -9,6 +9,10 @@ Application Url - https://y-usman.github.io/Code-Quiz/
 Deployed APP Screenshot
 ![Deployed application screenshot](/assets/result.png)
 
+Highscore 
+
+![Deployed application screenshot](/assets/highscore.png)
+
 ## Installation
 
 ## Credits
