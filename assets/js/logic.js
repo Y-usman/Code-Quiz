@@ -92,12 +92,13 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
+
     function startTimer() {
         timerInterval = setInterval(function () {
             timerSpan.textContent = timeRemaining;
             timeRemaining--;
 
-            if (timeRemaining < 0) {
+            if (timeRemaining <= 0) {
                 endQuiz();
             }
         }, 1000);
@@ -106,8 +107,10 @@ document.addEventListener("DOMContentLoaded", function () {
     function endQuiz() {
         clearInterval(timerInterval);
         endScreen.style.display = "block";
-        document.getElementById("final-score").textContent = score;
-
+        //document.getElementById("final-score").textContent = score;
+        // Use the time remaining as the score
+        const finalScore = Math.max(0, timeRemaining);
+        document.getElementById("final-score").textContent = finalScore;
         // Hide the question element
         const questionElement = document.getElementById("question");
         if (questionElement) {

@@ -93,5 +93,10 @@ const questions = [
         title: "What does the acronym 'SQL' stand for?",
         choices: ["Structured Question Language", "Standard Query Language", "Structured Query Language", "System Question Language"],
         correctChoice: "Structured Query Language"
+    },
+    {
+        title: "What is the purpose of the 'alt' attribute in an HTML image tag?",
+        choices: ["Align Left Text", "Alternate Text for the Image", "Attribute Language Tag", "All of the above"],
+        correctChoice: "Alternate Text for the Image"
     }
 ];
