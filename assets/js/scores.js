@@ -9,7 +9,7 @@ function setHighscores(highscores) {
 }
 
 // Function to save the result to localStorage
-export function saveResult(initials, score) {
+function saveResult(initials, score) {
     const existingHighscores = getHighscores();
     const newScore = { initials, score };
     existingHighscores.push(newScore);
@@ -17,7 +17,7 @@ export function saveResult(initials, score) {
 }
 
 // Function to display highscores on the highscores.html page
-export function displayHighscores() {
+ function displayHighscores() {
     console.log("Displaying highscores...");
     const highscoresContainer = document.getElementById("highscores");
 
@@ -42,7 +42,7 @@ export function displayHighscores() {
     }
 }
 
-export function clearHighscores() {
+ function clearHighscores() {
     localStorage.removeItem("highscores");
     // Don't need to call displayHighscores here, as it's called in the event listener
 }
@@ -52,6 +52,11 @@ export function clearHighscores() {
 document.addEventListener("DOMContentLoaded", function () {
     displayHighscores();  // Ensure this is called at the correct time
     const clearBtn = document.getElementById("clear");
+    if (clearBtn !== undefined && clearBtn !== null) {
+        // Now we know that foo is defined, we are good to go.
+        console.log("Clearing scores...");
+    }
+      
     clearBtn.addEventListener("click", clearHighscores);
     // ... rest of the code ...
 });
