@@ -13,8 +13,9 @@ document.addEventListener("DOMContentLoaded", function () {
     const endScreen = document.getElementById("end-screen");
     const feedbackDiv = document.getElementById("feedback");
     const scoresLink = document.querySelector(".scores a");
-    const questionEl = document.getElementById("question");
+    const question = document.getElementById("question");
 
+    console.log("question-title element:", document.getElementById("question-title"));
 
     let currentQuestionIndex = 0;
     let score = 0;
@@ -30,27 +31,23 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function startQuiz() {
         startBtn.style.display = "none";
-        questionEl.classList().remove("hide");
+        question.classList.remove("hide");
         showQuestion();
         startTimer();
     }
-
+    
     function showQuestion() {
         console.log("showing Questions");
         const currentQuestion = questions[currentQuestionIndex];
-        console.log(currentQuestion.title)
-            const testEl = document.getElementById("question-text");
-            testEl.textContent = "Hello"
-          // Clear previous choices
-          const choicesContainer = document.getElementById("choices");
-          choicesContainer.innerHTML = "";
-        // if (currentQuestion) {
+        // Clear previous choices
+        const choicesContainer = document.getElementById("choices");
+        choicesContainer.innerHTML = "";
+    
+        if (currentQuestion) {
             // Check if currentQuestion is defined
     
             // Update the question title
-            document.getElementById("question-title").textContent = currentQuestion.title;
-    
-          
+            document.getElementById("question-text").textContent = currentQuestion.title;
     
             // Create buttons for each choice
             currentQuestion.choices.forEach((choice) => {
@@ -61,13 +58,11 @@ document.addEventListener("DOMContentLoaded", function () {
             });
     
             console.log("Showing question:", currentQuestionIndex, currentQuestion);
-        // } else {
-        //     // If there are no more questions, end the quiz
-        //     endQuiz();
-        // }
+        } else {
+            // If there are no more questions, end the quiz
+            endQuiz();
+        }
     }
-    
-    
 
     function checkAnswer(selectedChoice) {
         const currentQuestion = questions[currentQuestionIndex];
@@ -79,6 +74,14 @@ document.addEventListener("DOMContentLoaded", function () {
             timeRemaining -= 10; // Penalty for incorrect answer
             feedbackDiv.textContent = "Wrong!";
         }
+
+        // Display the feedback
+        feedbackDiv.classList.remove("hide");
+
+        // Hide the feedback after a brief delay (e.g., 1 second)
+        setTimeout(() => {
+            feedbackDiv.classList.add("hide");
+        }, 500);
 
         currentQuestionIndex++;
 
@@ -104,16 +107,32 @@ document.addEventListener("DOMContentLoaded", function () {
         clearInterval(timerInterval);
         endScreen.style.display = "block";
         document.getElementById("final-score").textContent = score;
+
+        // Hide the question element
+        const questionElement = document.getElementById("question");
+        if (questionElement) {
+            questionElement.classList.add("hide");
+        }
     }
 
     function submitScore() {
         const initials = initialsInput.value.trim();
 
         if (initials !== "") {
-            saveResult(initials, score);
-            console.log("Displaying highscores...");
-            displayHighscores(); // Display highscores after submitting
+            // Call the saveResult function
+            if (typeof window !== 'undefined' && window.saveResult) {
+                window.saveResult(initials, score);
+                console.log("Displaying highscores...");
+                displayHighscores(); // Display highscores after submitting
+
+                // Redirect to highscores.html
+                window.location.href = "highscores.html";
+            } else {
+                console.error("saveResult function not defined");
+            }
         }
+
+        
     }
 });
 
